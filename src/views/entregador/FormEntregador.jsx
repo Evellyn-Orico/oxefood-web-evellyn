@@ -27,17 +27,14 @@ export default function FormEntregador() {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Título'
-                                    placeholder='Informe o título do produto'
+                                    label='Nome'
                                     maxLength="100"
                                 />
 
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Códgo do Produto'>
-                                    <input placeholder='Código do produto' />
-
+                                    label='CPF'>
                                 </Form.Input>
 
 
@@ -102,45 +99,43 @@ export default function FormEntregador() {
 
 
 
-                            {/*  */}
+                            {/* P 3 */}
 
                             <Form.Group widths='equal'>
 
                                 <Form.Input
-                                    control={TextArea}
-                                    label='Descrição'
+                                    label='Rua'
                                     maxLength="1000"
-                                    placeholder='Informe a descrição do produto'
+                                />
+
+                                <Form.Input
+                                    label='Número'
+                                    maxLength="1000"
                                 />
 
 
                             </Form.Group>
 
 
-                            {/* parte 3 */}
+                            {/* parte 4 */}
 
                             <Form.Group widths='equal'>
 
                                 <Form.Input
-                                    required
                                     fluid
                                     label='Bairro'
-                                    placeholder='Informe o título do produto'
                                     maxLength="100"
                                 />
 
                                 <Form.Input
-                                    required
                                     fluid
-                                    label='Códgo do Produto'>
-                                    <input placeholder='Código do produto' />
-
+                                    label='Cidade'>
                                 </Form.Input>
 
 
                                 <Form.Input
                                     fluid
-                                    label='RG'>
+                                    label='CEP'>
                                 </Form.Input>
 
                             </Form.Group>
@@ -148,6 +143,21 @@ export default function FormEntregador() {
 
 
                             {/*  */}
+
+                            {/* <Form.Input>
+                                <div className = “field”>
+                                    <label>UF</label>
+                                    <select clasName=”ui fluid dropdown”>
+                                        <option value=”PE”>PE</option>
+                                        <option value=”RN”>RN</option>
+                                        <option value=”MS”>MS</option>
+                                    </select>
+                                </div>
+                            </Form.Input> */}
+                            
+
+                            {/*  */}
+
 
                             <Form.Group widths='equal'>
 
@@ -173,7 +183,41 @@ export default function FormEntregador() {
                                 >
                                 </Form.Input>
 
+
                             </Form.Group>
+
+
+                            {/* U PP */}
+
+                            <div className="ui form">
+                                <div className="inline fields">
+                                    <label htmlFor="ativo">Ativo:</label>
+                                    <div className="field">
+                                        <div className="ui radio checkbox">
+                                            <input
+                                                type="radio"
+                                                name="ativo"
+                                                value="sim"
+                                                tabIndex="0"
+                                            />
+                                            <label htmlFor="ativo-sim">Sim</label>
+                                        </div>
+                                    </div>
+                                    <div className="field">
+                                        <div className="ui radio checkbox">
+                                            <input
+                                                type="radio"
+                                                name="ativo"
+                                                value="não"
+                                                tabIndex="0"
+                                            />
+                                            <label htmlFor="ativo-nao">Não</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                         </Form>
 
