@@ -1,12 +1,58 @@
+import axios from "axios";
+
 import InputMask from "comigo-tech-react-input-mask/lib/react-input-mask.development";
-import React from "react";
-import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
+import React, { useState } from "react";
+import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+import MenuSistema from '../../MenuSistema';
+
 
 export default function FormEntregador() {
+
+    const [nome, setNome] = useState();
+    const [cpf, setCpf] = useState();
+    const [rg, setRg] = useState();
+    const [dataNascimento, setDataNascimento] = useState();
+    const [foneCelular, setFoneCelular] = useState();
+    const [foneFixo, setFoneFixo] = useState();
+    const [qtdEntregasRealizadas, setQtdEntregasRealizadas] = useState();
+    const [valorFrete, setValorFrete] = useState();
+    const [enderecoRua, setEnderecoRua] = useState();
+    const [enderecoComplemento, setEnderecoComplemento] = useState();
+    const [enderecoNumero, setEnderecoNumero] = useState();
+    const [enderecoBairro, setEnderecoBairro] = useState();
+    const [enderecoCidade, setEnderecoCidade] = useState();
+    const [enderecoCep, setEnderecoCep] = useState();
+    const [enderecoUf, setEnderecoUf] = useState();
+    const [ativo, setAtivo] = useState();
+
+
+
+    function salvar() {
+
+        let produtoRequest = {
+            titulo: titulo,
+            codigo: codigo,
+            descricao: descricao,
+            valorUnitario: valorUnitario,
+            tempoEntregaMinimo: tempoEntregaMinimo,
+            tempoEntregaMaximo: tempoEntregaMaximo
+        }
+
+        axios.post("http://localhost:8080/api/produto", produtoRequest)
+            .then((response) => {
+                console.log('Cliente cadastrado com sucesso.')
+            })
+            .catch((error) => {
+                console.log('Erro ao incluir o um cliente.')
+            })
+    }
+
 
     return (
 
         <div>
+            <MenuSistema tela={'cliente'} />
+
 
             <div style={{ marginTop: '3%' }}>
 
@@ -29,18 +75,24 @@ export default function FormEntregador() {
                                     fluid
                                     label='Nome'
                                     maxLength="100"
+                                    value={nome}
+                                    onChange={e => setNome(e.target.value)}
                                 />
 
                                 <Form.Input
                                     required
                                     fluid
                                     label='CPF'>
+                                    value={cpf}
+                                    onChange={e => setCpf(e.target.value)}
                                 </Form.Input>
 
 
                                 <Form.Input
                                     fluid
                                     label='RG'>
+                                    value={rg}
+                                    onChange={e => setRg(e.target.value)}
                                 </Form.Input>
 
                             </Form.Group>
@@ -154,7 +206,7 @@ export default function FormEntregador() {
                                     </select>
                                 </div>
                             </Form.Input> */}
-                            
+
 
                             {/*  */}
 
