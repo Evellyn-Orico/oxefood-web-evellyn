@@ -1,13 +1,15 @@
 import axios from "axios";
 
-import React, { useState } from "react";
+import { default as React, default as React, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
+import React from "react";
+
+
 
 export default function FormProduto() {
-
-
 
 
     const [titulo, setTitulo] = useState();
@@ -16,6 +18,23 @@ export default function FormProduto() {
     const [valorUnitario, setValorUnitario] = useState();
     const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState();
     const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
+
+    const { state } = useLocation();    // slide 15
+    const [idProduto, setIdProduto] = useState();
+    useEffect(() => {
+        if (state != null && state.id != null) {
+            axios.get("http://localhost:8080/api/produto/" + state.id)
+                .then((response) => {
+                    setIdProduto(response.data.id)
+                    setTitulo(response.data.titulo)
+                    setCodigo(response.data.codigo)
+                    setValorUnitario(response.data.valorUnitario)
+                    setTempoEntregaMinimo(response.data.tempoEntregaMinimo)
+                    setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
+                })
+        }
+    }, [state])   // slide 15
+
 
     function salvar() {
 
@@ -28,14 +47,19 @@ export default function FormProduto() {
             tempoEntregaMaximo: tempoEntregaMaximo
         }
 
-        axios.post("http://localhost:8080/api/produto", produtoRequest)
-            .then((response) => {
-                console.log('Cliente cadastrado com sucesso.')
-            })
-            .catch((error) => {
-                console.log('Erro ao incluir o um cliente.')
-            })
+        if (idProduto != null) { //Alteração:
+            axios.put("http://localhost:8080/api/produto/" + idProduto, produtoRequest)
+                .then((response) => { console.log('Produto alterado com sucesso.') })
+                .catch((error) => { console.log('Erro ao alter um produto.') })
+        } else { //Cadastro:
+            axios.post("http://localhost:8080/api/produto", produtoRequest)
+                .then((response) => { console.log('Produto cadastrado com sucesso.') })
+                .catch((error) => { console.log('Erro ao incluir o produto.') })
+        }
+
     }
+
+
 
 
 
@@ -43,7 +67,7 @@ export default function FormProduto() {
 
         <div>
 
-            <MenuSistema tela={'cliente'} />
+            <MenuSistema tela={'produto'} />
 
 
             <div style={{ marginTop: '3%' }}>
@@ -51,6 +75,14 @@ export default function FormProduto() {
                 <Container textAlign='justified' >
 
                     <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+
+                    {idCliente === undefined &&
+                        <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+                    }
+                    {idCliente != undefined &&
+                        <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+                    }
+
 
                     <Divider />
 
@@ -134,17 +166,20 @@ export default function FormProduto() {
 
                         <div style={{ marginTop: '4%' }}>
 
-                            <Button
-                                type="button"
-                                inverted
-                                circular
-                                icon
-                                labelPosition='left'
-                                color='orange'
-                            >
-                                <Icon name='reply' />
-                                Voltar
-                            </Button>
+                            <Link to={'/list-produto'}>
+                                <Button
+                                    type="button"
+                                    inverted
+                                    circular
+                                    icon
+                                    labelPosition='left'
+                                    color='orange'
+                                >
+                                    <Icon name='reply' />
+                                    Voltar
+                                </Button>
+                            </Link>
+
 
                             <Button
                                 inverted

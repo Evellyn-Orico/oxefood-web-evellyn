@@ -1,279 +1,265 @@
 import axios from "axios";
-
-import InputMask from "comigo-tech-react-input-mask/lib/react-input-mask.development";
+import InputMask from 'comigo-tech-react-input-mask';
 import React, { useState } from "react";
-import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
+import { Button, Container, Divider, Form, FormGroup, FormRadio, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
-
-export default function FormEntregador() {
+export default function FormEntregador () {
 
     const [nome, setNome] = useState();
     const [cpf, setCpf] = useState();
     const [rg, setRg] = useState();
     const [dataNascimento, setDataNascimento] = useState();
     const [foneCelular, setFoneCelular] = useState();
-    const [foneFixo, setFoneFixo] = useState();
-    const [qtdEntregasRealizadas, setQtdEntregasRealizadas] = useState();
-    const [valorFrete, setValorFrete] = useState();
-    const [enderecoRua, setEnderecoRua] = useState();
-    const [enderecoComplemento, setEnderecoComplemento] = useState();
-    const [enderecoNumero, setEnderecoNumero] = useState();
-    const [enderecoBairro, setEnderecoBairro] = useState();
-    const [enderecoCidade, setEnderecoCidade] = useState();
-    const [enderecoCep, setEnderecoCep] = useState();
-    const [enderecoUf, setEnderecoUf] = useState();
-    const [ativo, setAtivo] = useState();
+    const [foneFixo, setFoneFixo] = useState(); 
+    const [qtdEntregasRealizadas, setQtdEntregasRealizadas] = useState(); 
+    const [valorFrete, setValorFrete] = useState(); 
+    const [enderecoRua, setEnderecoRua] = useState(); 
+    const [enderecoNumero, setEnderecoNumero] = useState(); 
+    const [enderecoComplemento, setEnderecoComplemento] = useState(); 
+    const [enderecoBairro, setEnderecoBairro] = useState(); 
+    const [enderecoCidade, setEnderecoCidade] = useState(); 
+    const [enderecoCep, setEnderecoCep] = useState(); 
+    const [enderecoUf, setEnderecoUf] = useState(); 
+    const [ativo, setAtivo] = useState(true);
 
+    function salvar() { //Função cria um objeto e coloca na variavel -> clientRequest)
 
-
-    function salvar() {
-
-        let produtoRequest = {
-            titulo: titulo,
-            codigo: codigo,
-            descricao: descricao,
-            valorUnitario: valorUnitario,
-            tempoEntregaMinimo: tempoEntregaMinimo,
-            tempoEntregaMaximo: tempoEntregaMaximo
-        }
-
-        axios.post("http://localhost:8080/api/produto", produtoRequest)
-            .then((response) => {
-                console.log('Cliente cadastrado com sucesso.')
-            })
-            .catch((error) => {
-                console.log('Erro ao incluir o um cliente.')
-            })
-    }
-
+		let EntregadorRequest = { 
+		     nome: nome,
+		     cpf: cpf,
+             rg: rg,
+		     dataNascimento: dataNascimento,
+		     foneCelular: foneCelular,
+		     foneFixo: foneFixo,
+             qtdEntregasRealizadas: qtdEntregasRealizadas,
+             valorFrete: valorFrete,
+             enderecoRua: enderecoRua,
+             enderecoNumero: enderecoNumero,
+             enderecoComplemento:enderecoComplemento,
+             enderecoBairro:enderecoBairro,
+             enderecoCep:enderecoCep,
+             enderecoUf:enderecoUf,
+             ativo:ativo
+		}
+	
+		axios.post("http://localhost:8080/api/entregador", EntregadorRequest) //Requisição atraves da biblioteca axios do tipo post
+		.then((response) => {
+		     console.log('Entregador cadastrado com sucesso.')
+		})
+		.catch((error) => {
+		     console.log('Erro ao incluir o um entregador.')
+		})
+	}
 
     return (
 
         <div>
-            <MenuSistema tela={'cliente'} />
+            
+        <MenuSistema tela={'entregador'} />
 
-
-            <div style={{ marginTop: '3%' }}>
+            <div style={{marginTop: '3%'}}>
 
                 <Container textAlign='justified' >
 
-                    <h2> <span style={{ color: 'darkgray' }}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+                    <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
 
                     <Divider />
 
-                    <div style={{ marginTop: '4%' }}>
+                    <div style={{marginTop: '4%'}}>
 
                         <Form>
 
-                            {/* parte 1 ok */}
-
-                            <Form.Group widths='equal'>
+                            <Form.Group>
 
                                 <Form.Input
                                     required
                                     fluid
                                     label='Nome'
-                                    maxLength="100"
-                                    value={nome}
-                                    onChange={e => setNome(e.target.value)}
+                                   width={10}
+                                   value={nome}
+			                        onChange={e => setNome(e.target.value)}
+
                                 />
 
                                 <Form.Input
                                     required
+                                    width={3}
                                     fluid
                                     label='CPF'>
+                                    <InputMask
+                                    required
+                                    mask="999.999.999-99"
                                     value={cpf}
-                                    onChange={e => setCpf(e.target.value)}
+			                        onChange={e => setCpf(e.target.value)}
+
+                                    /> 
+                                    
                                 </Form.Input>
-
-
+                               
                                 <Form.Input
                                     fluid
-                                    label='RG'>
-                                    value={rg}
-                                    onChange={e => setRg(e.target.value)}
-                                </Form.Input>
+                                    label='RG'
+                                   width={4}
+                                   value={rg}
+			                        onChange={e => setRg(e.target.value)}
+
+                                />
 
                             </Form.Group>
-
-                            {/* parte 2 -- */}
-
-
-                            <Form.Group widths='equal'>
-
-                                <Form.Input
+                            <Form.Group>
+                            <Form.Input
                                     fluid
-                                    label='Data Nascimento'
+                                    label='DT Nascimento'
+                                    width={4}>
+                                     <InputMask 
+                                    mask="99/99/9999" 
+                                    maskChar={null}
+                                    placeholder="Ex: 20/03/1985"
+                                    value={dataNascimento}
+			                        onChange={e => setDataNascimento(e.target.value)}
+
+                                    /> 
+                                </Form.Input>
+
+                            <Form.Input
+                            required
+                            fluid
+                            label='Fone Celular'
+                            width={6}>
+                            <InputMask 
+                            mask="(99) 9999.9999"
+                            value={foneCelular}
+		                	onChange={e => setFoneCelular(e.target.value)}
+
+                            /> 
+                            </Form.Input>
+                            
+                            <Form.Input
+                            fluid
+                            label='Fone Fixo'
+                            width={6}>
+                            <InputMask 
+                            mask="(99) 9999.9999"
+                            value={foneFixo}
+		                	onChange={e => setFoneFixo(e.target.value)}
+
+                            /> 
+                            </Form.Input>
+
+                            <Form.Input
+                                    fluid
+                                    label='QTD Entregas Realizadas'
                                     width={6}
-                                >
-                                    <InputMask
-                                        mask="99/99/9999"
-                                        maskChar={null}
-                                        placeholder="Ex: 20/03/1985"
-                                    />
+                                    value={qtdEntregasRealizadas}
+		                        	onChange={e => setQtdEntregasRealizadas(e.target.value)}
+                                    >
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
-                                    required
-                                    label='Fone Celular'
-                                    width={6}>
-                                    <InputMask
-                                        mask="(99) 9999.9999"
-                                    />
+                                    label='Valor Por Frete'
+                                    width={6}
+                                    value={valorFrete}
+		                        	onChange={e => setValorFrete(e.target.value)}
+                                    >
                                 </Form.Input>
+
+                                </Form.Group>
+                            <Form.Group>
 
                                 <Form.Input
                                     fluid
-                                    label='Fone Fixo'
-                                    width={6}>
-                                    <InputMask
-                                        mask="(99) 9999.9999"
-                                    />
-                                </Form.Input>
-
-                                <Form.Input
-                                    required
-                                    fluid
-                                    label='QTD de Entregas Realizadas'>
-
-                                </Form.Input>
-
-                                <Form.Input
-                                    required
-                                    fluid
-                                    label='Valor por Frete'>
-                                </Form.Input>
-
-
-                            </Form.Group>
-
-
-
-                            {/* P 3 */}
-
-                            <Form.Group widths='equal'>
-
-                                <Form.Input
                                     label='Rua'
-                                    maxLength="1000"
-                                />
+                                    width={14}
+                                         value={enderecoRua}
+                                         onChange={e => setEnderecoRua(e.target.value)}
+                                >
+                                </Form.Input>
 
                                 <Form.Input
+                                    fluid
                                     label='Número'
-                                    maxLength="1000"
-                                />
-
+                                    width={3}
+                                    value={enderecoNumero}
+                                    onChange={e => setEnderecoNumero(e.target.value)}
+                                >
+                                </Form.Input>
 
                             </Form.Group>
+                        
+                            <Form.Group>
 
-
-                            {/* parte 4 */}
-
-                            <Form.Group widths='equal'>
-
-                                <Form.Input
+                            <Form.Input
                                     fluid
                                     label='Bairro'
-                                    maxLength="100"
-                                />
-
-                                <Form.Input
-                                    fluid
-                                    label='Cidade'>
+                                    width={12}
+                                    value={enderecoBairro}
+                                    onChange={e => setEnderecoBairro(e.target.value)}
+                                >
                                 </Form.Input>
 
+                                <Form.Input
+                                    fluid
+                                    label='Cidade'
+                                    width={13}
+                                    value={enderecoCidade}
+                                    onChange={e => setEnderecoCidade(e.target.value)}
+                                >
+                                </Form.Input>
 
                                 <Form.Input
                                     fluid
-                                    label='CEP'>
+                                    label='CEP'
+                                    width={4}
+                                    value={enderecoCep}
+                                    onChange={e => setEnderecoCep(e.target.value)}
+                                >
                                 </Form.Input>
 
                             </Form.Group>
 
-
-
-                            {/*  */}
-
-                            {/* <Form.Input>
-                                <div className = “field”>
-                                    <label>UF</label>
-                                    <select clasName=”ui fluid dropdown”>
-                                        <option value=”PE”>PE</option>
-                                        <option value=”RN”>RN</option>
-                                        <option value=”MS”>MS</option>
-                                    </select>
-                                </div>
-                            </Form.Input> */}
-
-
-                            {/*  */}
-
-
-                            <Form.Group widths='equal'>
-
-                                <Form.Input
+                            <Form.Input
                                     fluid
-                                    label='Valor Unitário'
-                                    width={6}>
+                                    label='UF'
+                                    width={60}
+                                    value={enderecoUf}
+                                    onChange={e => setEnderecoUf(e.target.value)}
+                                >
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
-                                    label='Tempo de Entrega Mínima em Minutos'
-                                    width={6}>
-                                    <input placeholder='30' />
-
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    label='Tempo de Entrega Máxima em Minutos'
-                                    width={6}
-                                    placeholder='40'
+                                    label='Complemento'
+                                    width={60}
+                                    value={enderecoComplemento}
+                                    onChange={e => setEnderecoComplemento(e.target.value)}
                                 >
                                 </Form.Input>
 
 
-                            </Form.Group>
 
-
-                            {/* U PP */}
-
-                            <div className="ui form">
-                                <div className="inline fields">
-                                    <label htmlFor="ativo">Ativo:</label>
-                                    <div className="field">
-                                        <div className="ui radio checkbox">
-                                            <input
-                                                type="radio"
-                                                name="ativo"
-                                                value="sim"
-                                                tabIndex="0"
-                                            />
-                                            <label htmlFor="ativo-sim">Sim</label>
-                                        </div>
-                                    </div>
-                                    <div className="field">
-                                        <div className="ui radio checkbox">
-                                            <input
-                                                type="radio"
-                                                name="ativo"
-                                                value="não"
-                                                tabIndex="0"
-                                            />
-                                            <label htmlFor="ativo-nao">Não</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
+<FormGroup inline>
+          <label>Ativo:</label>
+          <FormRadio
+            label='Sim'
+            checked={ativo === true}
+            onChange={e => setAtivo(true)}
+          />
+          <FormRadio
+            label='Não'
+            checked={ativo === false}
+            onChange={e => setAtivo(false)}
+          />
+         
+        </FormGroup>
 
                         </Form>
+                        
+                        <div style={{marginTop: '4%'}}>
 
-                        <div style={{ marginTop: '4%' }}>
+                        <Link to={'/list-entregador'}>
 
                             <Button
                                 type="button"
@@ -286,6 +272,8 @@ export default function FormEntregador() {
                                 <Icon name='reply' />
                                 Voltar
                             </Button>
+                                
+                            </Link>
 
                             <Button
                                 inverted
@@ -294,6 +282,7 @@ export default function FormEntregador() {
                                 labelPosition='left'
                                 color='blue'
                                 floated='right'
+                                onClick={() => salvar()}
                             >
                                 <Icon name='save' />
                                 Salvar
@@ -302,7 +291,7 @@ export default function FormEntregador() {
                         </div>
 
                     </div>
-
+                    
                 </Container>
             </div>
         </div>
