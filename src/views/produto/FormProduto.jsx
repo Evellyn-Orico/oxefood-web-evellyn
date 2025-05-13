@@ -1,11 +1,10 @@
 import axios from "axios";
 
-import { default as React, default as React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
-import React from "react";
 
 
 
@@ -14,7 +13,7 @@ export default function FormProduto() {
 
     const [titulo, setTitulo] = useState();
     const [codigo, setCodigo] = useState();
-    const [descricao, setDescicao] = useState();
+    const [descricao, setDescricao] = useState();
     const [valorUnitario, setValorUnitario] = useState();
     const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState();
     const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
@@ -76,10 +75,10 @@ export default function FormProduto() {
 
                     <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
 
-                    {idCliente === undefined &&
+                    {idProduto === undefined &&
                         <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
                     }
-                    {idCliente != undefined &&
+                    {idProduto != undefined &&
                         <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
                     }
 
@@ -105,10 +104,10 @@ export default function FormProduto() {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Códgo do Produto'>
-                                    <input placeholder='Código do produto' />
+                                    label='Códgo do Produto'
+                                    placeholder='Código do produto'
                                     value={codigo}
-                                    onChange={e => setCodigo(e.target.value)}
+                                    onChange={e => setCodigo(e.target.value)}>
 
                                 </Form.Input>
 
@@ -122,7 +121,7 @@ export default function FormProduto() {
                                     placeholder='Informe a descrição do produto'
                                     maxLength="10000"
                                     value={descricao}
-                                    onChange={e => setDescicao(e.target.value)}
+                                    onChange={e => setDescricao(e.target.value)}
                                 />
 
 
@@ -188,6 +187,8 @@ export default function FormProduto() {
                                 labelPosition='left'
                                 color='blue'
                                 floated='right'
+                                onClick={() => salvar()}
+
                             >
                                 <Icon name='save' />
                                 Salvar

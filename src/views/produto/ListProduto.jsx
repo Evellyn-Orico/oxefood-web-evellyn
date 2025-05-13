@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
@@ -65,7 +65,7 @@ export default function ListProduto() {
 
                 <Container textAlign='justified' >
 
-                    <h2> produto </h2>
+                    <h2> Produto </h2>
                     <Divider />
 
                     {/* ajeitar */}
@@ -86,11 +86,12 @@ export default function ListProduto() {
 
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell>Nome</Table.HeaderCell>
-                                    <Table.HeaderCell>CPF</Table.HeaderCell>
-                                    <Table.HeaderCell>Data de Nascimento</Table.HeaderCell>
-                                    <Table.HeaderCell>Fone Celular</Table.HeaderCell>
-                                    <Table.HeaderCell>Fone Fixo</Table.HeaderCell>
+                                   <Table.HeaderCell>Codigo</Table.HeaderCell>
+                                    <Table.HeaderCell>Título</Table.HeaderCell>
+                                    <Table.HeaderCell>Descrição</Table.HeaderCell>
+                                    <Table.HeaderCell>Valor Unitário</Table.HeaderCell>
+                                    <Table.HeaderCell>Tempo de Entrega Mínimo</Table.HeaderCell>
+                                    <Table.HeaderCell>Tempo de Entrega Máximo</Table.HeaderCell>
                                     <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
@@ -100,11 +101,12 @@ export default function ListProduto() {
                                 {lista.map(produto => (
 
                                     <Table.Row key={produto.id}>
-                                        <Table.Cell>{produto.nome}</Table.Cell>
-                                        <Table.Cell>{produto.cpf}</Table.Cell>
-                                        <Table.Cell>{formatarData(produto.dataNascimento)}</Table.Cell>
-                                        <Table.Cell>{produto.foneCelular}</Table.Cell>
-                                        <Table.Cell>{produto.foneFixo}</Table.Cell>
+                                        <Table.Cell>{produto.codigo}</Table.Cell>
+                                        <Table.Cell>{produto.titulo}</Table.Cell>
+                                        <Table.Cell>{produto.descricao}</Table.Cell>
+                                        <Table.Cell>{produto.valorUnitario}</Table.Cell>
+                                        <Table.Cell>{produto.tempoEntregaMinimo}</Table.Cell>
+                                        <Table.Cell>{produto.tempoEntregaMaximo}</Table.Cell>
                                         <Table.Cell textAlign='center'>
 
                                             <Button
@@ -121,8 +123,8 @@ export default function ListProduto() {
                                                 circular
                                                 color='red'
                                                 title='Clique aqui para remover este produto'
-                                                icon>
-                                                onClick={e => confirmaRemover(produto.id)}
+                                                icon
+                                                onClick={e => confirmaRemover(produto.id)}>
                                                 <Icon name='trash' />
                                             </Button>
 

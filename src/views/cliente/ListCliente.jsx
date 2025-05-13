@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
@@ -32,7 +32,7 @@ export default function ListCliente() {
         return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
     }
 
-    function confirmaRemover(id) {
+    function confirmaRemover(id) {  //Recebe o id do cliente
         setOpenModal(true)
         setIdRemover(id)
     }
@@ -118,8 +118,8 @@ export default function ListCliente() {
                                                 circular
                                                 color='red'
                                                 title='Clique aqui para remover este cliente'
-                                                icon>
-                                                onClick={e => confirmaRemover(cliente.id)}
+                                                icon
+                                                onClick={e => confirmaRemover(cliente.id)}>
                                                 <Icon name='trash' />
                                             </Button>
 

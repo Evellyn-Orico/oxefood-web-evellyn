@@ -1,10 +1,9 @@
 import axios from "axios";
 
 import InputMask from 'comigo-tech-react-input-mask';
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 
-import { default as React, default as React, default as React, default as React, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MenuSistema from '../../MenuSistema';
 
@@ -82,7 +81,7 @@ export default function FormCliente() {
                 <Container textAlign='justified' >
 
 
-                    <h2> <span style={{ color: 'darkgray' }}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+                    {/* <h2> <span style={{ color: 'darkgray' }}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>    */}
 
                     {idCliente === undefined &&
                         <h2> <span style={{ color: 'darkgray' }}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>

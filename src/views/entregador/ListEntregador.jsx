@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
@@ -65,7 +65,7 @@ export default function ListEntregador() {
 
                 <Container textAlign='justified' >
 
-                    <h2> entregador </h2>
+                    <h2> Entregador </h2>
                     <Divider />
 
                     {/* ajeitar */}
@@ -120,8 +120,8 @@ export default function ListEntregador() {
                                                 circular
                                                 color='red'
                                                 title='Clique aqui para remover este entregador'
-                                                icon>
-                                                onClick={e => confirmaRemover(entregador.id)}
+                                                icon
+                                                onClick={e => confirmaRemover(entregador.id)}>
                                                 <Icon name='trash' />
                                             </Button>
 

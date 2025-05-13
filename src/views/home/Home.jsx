@@ -1,6 +1,7 @@
-import React from "react";
 import { Container, Grid, Image } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
+// import React from "react";
+
 
 
 export default function Home() {
@@ -8,7 +9,7 @@ export default function Home() {
     return (
         <div>
 
-            <MenuSistema tela={'cliente'} />
+            <MenuSistema tela={'Home'} />
 
 
             <div style={{ marginTop: '5%' }}>
