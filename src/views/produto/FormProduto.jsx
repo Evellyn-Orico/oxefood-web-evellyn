@@ -1,15 +1,10 @@
 import axios from "axios";
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
-
-
-
 export default function FormProduto() {
-
 
     const [titulo, setTitulo] = useState();
     const [codigo, setCodigo] = useState();
@@ -17,9 +12,9 @@ export default function FormProduto() {
     const [valorUnitario, setValorUnitario] = useState();
     const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState();
     const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
-
-    const { state } = useLocation();    // slide 15
+    const { state } = useLocation();
     const [idProduto, setIdProduto] = useState();
+
     useEffect(() => {
         if (state != null && state.id != null) {
             axios.get("http://localhost:8080/api/produto/" + state.id)
@@ -27,17 +22,18 @@ export default function FormProduto() {
                     setIdProduto(response.data.id)
                     setTitulo(response.data.titulo)
                     setCodigo(response.data.codigo)
+                    setDescricao(response.data.descricao)
                     setValorUnitario(response.data.valorUnitario)
                     setTempoEntregaMinimo(response.data.tempoEntregaMinimo)
                     setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
                 })
         }
-    }, [state])   // slide 15
+    }, [state])
 
 
     function salvar() {
 
-        let produtoRequest = {
+        let ProdutoRequest = {
             titulo: titulo,
             codigo: codigo,
             descricao: descricao,
@@ -47,20 +43,15 @@ export default function FormProduto() {
         }
 
         if (idProduto != null) { //Alteração:
-            axios.put("http://localhost:8080/api/produto/" + idProduto, produtoRequest)
+            axios.put("http://localhost:8080/api/produto/" + idProduto, ProdutoRequest)
                 .then((response) => { console.log('Produto alterado com sucesso.') })
                 .catch((error) => { console.log('Erro ao alter um produto.') })
         } else { //Cadastro:
-            axios.post("http://localhost:8080/api/produto", produtoRequest)
+            axios.post("http://localhost:8080/api/produto", ProdutoRequest)
                 .then((response) => { console.log('Produto cadastrado com sucesso.') })
                 .catch((error) => { console.log('Erro ao incluir o produto.') })
         }
-
     }
-
-
-
-
 
     return (
 
@@ -68,12 +59,10 @@ export default function FormProduto() {
 
             <MenuSistema tela={'produto'} />
 
-
             <div style={{ marginTop: '3%' }}>
 
                 <Container textAlign='justified' >
 
-                    <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
 
                     {idProduto === undefined &&
                         <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
@@ -94,71 +83,66 @@ export default function FormProduto() {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Título'
-                                    placeholder='Informe o título do produto'
+                                    label='Titulo'
                                     maxLength="100"
+                                    placeholder="Informe o titulo do produto"
                                     value={titulo}
                                     onChange={e => setTitulo(e.target.value)}
+
                                 />
 
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Códgo do Produto'
-                                    placeholder='Código do produto'
+                                    placeholder="Informe o código do produto"
+                                    label='Código do Produto'
                                     value={codigo}
-                                    onChange={e => setCodigo(e.target.value)}>
-
-                                </Form.Input>
-
-                            </Form.Group>
-
-
-                            <Form.Group widths='equal'>
-
-                                <Form.TextArea
-                                    label='Descrição'
-                                    placeholder='Informe a descrição do produto'
-                                    maxLength="10000"
-                                    value={descricao}
-                                    onChange={e => setDescricao(e.target.value)}
-                                />
-
-
-                            </Form.Group>
-
-
-
-                            <Form.Group>
-
-                                <Form.Input
-                                    fluid
-                                    label='Valor Unitário'
-                                    width={6}>
-                                    value={valorUnitario}
-                                    onChange={e => setValorUnitario(e.target.value)}
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    label='Tempo de Entrega Mínima em Minutos'
-                                    width={6}>
-                                    <input placeholder='30' />
-                                    value={tempoEntregaMinimo}
-                                    onChange={e => setTempoEntregaMinimo(e.target.value)}
-
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    label='Tempo de Entrega Máxima em Minutos'
-                                    width={6}
-                                    placeholder='40'
-                                    value={tempoEntregaMaximo}
-                                    onChange={e => setTempoEntregaMaximo(e.target.value)}
+                                    onChange={e => setCodigo(e.target.value)}
                                 >
                                 </Form.Input>
 
+                            </Form.Group>
+                            <Form.TextArea
+                                label='Descrição'
+                                placeholder="Informe a descrição do produto"
+                                maxLength="10000"
+                                value={descricao}
+                                onChange={e => setDescricao(e.target.value)}
+
+                            />
+                            <Form.Group>
+
+                                <Form.Input
+                                    required
+                                    fluid
+                                    label='Valor Unitário'
+                                    width={6}
+                                    value={valorUnitario}
+                                    onChange={e => setValorUnitario(e.target.value)}
+                                >
+                                </Form.Input>
+
+                                <Form.Input
+                                    fluid
+                                    label='Tempo de Entrega Mínimo em Minutos'
+                                    placeholder="30"
+                                    width={6}
+                                    value={tempoEntregaMinimo}
+                                    onChange={e => setTempoEntregaMinimo(e.target.value)}
+
+                                >
+                                </Form.Input>
+
+                                <Form.Input
+                                    fluid
+                                    label='Tempo de Entrega Máximo em Minutos'
+                                    placeholder="40"
+                                    width={6}
+                                    value={tempoEntregaMaximo}
+                                    onChange={e => setTempoEntregaMaximo(e.target.value)}
+
+                                >
+                                </Form.Input>
                             </Form.Group>
 
                         </Form>
@@ -166,6 +150,7 @@ export default function FormProduto() {
                         <div style={{ marginTop: '4%' }}>
 
                             <Link to={'/list-produto'}>
+
                                 <Button
                                     type="button"
                                     inverted
@@ -177,8 +162,8 @@ export default function FormProduto() {
                                     <Icon name='reply' />
                                     Voltar
                                 </Button>
-                            </Link>
 
+                            </Link>
 
                             <Button
                                 inverted
@@ -188,7 +173,6 @@ export default function FormProduto() {
                                 color='blue'
                                 floated='right'
                                 onClick={() => salvar()}
-
                             >
                                 <Icon name='save' />
                                 Salvar
